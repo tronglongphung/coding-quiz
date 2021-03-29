@@ -4,7 +4,7 @@ body {
 
 section {
   display: block;
-  margin: 60px auto;
+  margin: 30px auto;
   text-align: center;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
@@ -12,18 +12,23 @@ section {
   background-color: #f0ead6;
 }
 
+.form-section {
+  padding: 4%;
+  display: none;
+}
+
 .section-one {
-  padding: 5%;
+  padding: 4%;
   padding-top: 10px;
 }
 
 .game-section {
-  padding: 3%;
+  padding: 4%;
   display: none;
 }
 
 .highscore-section {
-  padding: 3%;
+  padding: 4%;
   display: none;
 }
 
@@ -37,7 +42,6 @@ h1 {
 
 ul {
   list-style-type: none;
-  background-color: white;
 }
 
 li {
@@ -47,7 +51,6 @@ li {
   padding: 5px;
   background-color: #001b44;
   color: white;
-  /* line-height: 1.5; */
 }
 
 li:before {

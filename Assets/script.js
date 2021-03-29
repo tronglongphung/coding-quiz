@@ -1,24 +1,25 @@
-// steps to do coding quiz game
-
 var startButton = document.querySelector('#start-button');
 var timerCount = document.querySelector('#timer')
 var nextButton = document.querySelector('#next-button')
 var highscoreButton = document.querySelector('#highscore-button')
 var pos = 0, test, test_status, question, choice, choices, chA, chB, chC, correct = 0;
-
-
-
+var todoInput = document.querySelector("#todo-text");
+var todoForm = document.querySelector("#todo-form");
+var todoList = document.querySelector("#todo-list");
+var todos = [{
+    name: "Boss", score: 10
+}];
+var secondsLeft = 15
+var timerSpan = document.querySelector('#your-record')
+var myTimer;
+var finishTime = secondsLeft;
 // when click button, start quiz
 startButton.addEventListener('click', function(event){
     event.preventDefault
     startQuiz()
 
-    // click button, save to local storage
-// nextButton.addEventListener('click', function(event) {
-//     event.preventDefault();
-    
-// });
 })
+
 // click button, go to highscore section
 highscoreButton.addEventListener('click', function(){
     highscoreTab()
@@ -26,7 +27,14 @@ highscoreButton.addEventListener('click', function(){
 
 function get(x){
     return document.getElementById(x);
-  }
+}
+
+function homescreen(){
+    document.querySelector('.section-one').style.display = 'block'
+    document.querySelector('.game-section').style.display = 'none'
+    document.querySelector('.highscore-section').style.display = 'none'
+    document.querySelector('.form-section').style.display = 'none'
+}
 
 var myQuestions = [
     {
@@ -37,25 +45,20 @@ var myQuestions = [
     answer: "c"
     },
     {
-      question: "Which one of these is a JavaScript package manager?",
-      answers: {
+    question: "Which one of these is a JavaScript package manager?",
         a: "Node.js",
         b: "TypeScript",
-        c: "npm"
-      },
-      correctAnswer: "c"
+        c: "npm",
+    answer: "c"
     },
     {
-      question: "Which tool can you use to ensure code quality?",
-      answers: {
+    question: "Which tool can you use to ensure code quality?", 
         a: "Angular",
         b: "jQuery",
-        c: "ESLint"
-      },
-      correctAnswer: "c"
+        c: "ESLint",
+    answer: "c"
     }
-  ];
-
+];
 
 // when start quiz, intro page vanish, show timer and question
 function startQuiz() {
@@ -65,11 +68,9 @@ function startQuiz() {
     startTimer()
     startQuestion1()
 }
-
 // start timer
 function startTimer(){
-    var secondsLeft = 30
-    var myTimer = setInterval(function(){
+    myTimer = setInterval(function(){
 
         secondsLeft = secondsLeft - 0.05 ;
         secondsLeft = secondsLeft.toFixed(2);
@@ -77,25 +78,21 @@ function startTimer(){
         timerCount.textContent = `Timer: ${secondsLeft} seconds left`;
 
         if (secondsLeft <= 0){
+            finishTime = secondsLeft;
             clearInterval(myTimer);
-            // alert u lose
+            homescreen()
         }
-    }, 50);
+    }, 50); 
 }
-
-// function wrongAnswer{
-
-// }
-
+function wrongAnswer(){
+    secondsLeft = secondsLeft - 2
+}
 // questionaire + answer after answering, minus time when answer wrong
 function startQuestion1(){
-    
     myAnswers = get("myanswers")
     pos = [0]
 
-
-
-    get("questiontitle").innerHTML = "Question "+(pos+1)+" out of "+ myQuestions.length;
+    get("questiontitle").innerHTML = "Question "+"1"+" out of "+ myQuestions.length;
 
     question = myQuestions[pos].question;
     chA = myQuestions[pos].a;
@@ -108,25 +105,24 @@ function startQuestion1(){
     myAnswers.innerHTML += "<label> <input id='choiceB' type='button' name='choices' value='B'> "+chB+"</label><br>";
     myAnswers.innerHTML += "<label> <input id='choiceC' type='button' name='choices' value='C'> "+chC+"</label><br>";
 
-    var choiceA = document.querySelector('choiceA')
-    var choiceB = document.querySelector('choiceB')
-    var choiceC = document.querySelector('choiceC')
-    choiceA.addEventListener('click', wrongAnswer())
-    choiceB.addEventListener('click', wrongAnswer())
-    choiceC.addEventListener('click', startQuestion2())
+    var choiceA = document.querySelector('#choiceA')
+    var choiceB = document.querySelector('#choiceB')
+    var choiceC = document.querySelector('#choiceC')
+    choiceA.addEventListener('click', wrongAnswer)
+    choiceB.addEventListener('click', wrongAnswer)
+    choiceC.addEventListener('click', startQuestion2)
 
 
-// write name down after finish
+// need help on linking button on wrong - right answers
+// need help on locking time after player finish
 }
-
-
 function startQuestion2(){
 
     myAnswers = get("myanswers")
     pos = [1]
 
-    get("questiontitle").innerHTML = "Question "+(pos+1)+" out of "+ myQuestions.length;
-    
+    get("questiontitle").innerHTML = "Question "+"2"+" out of "+ myQuestions.length;
+
     question = myQuestions[pos].question;
     chA = myQuestions[pos].a;
     chB = myQuestions[pos].b;
@@ -134,21 +130,24 @@ function startQuestion2(){
 
     myAnswers.innerHTML = "<h4>"+question+"</h4>";
 
-    myAnswers.innerHTML += "<label> <input type='radio' name='choices' value='A'> "+chA+"</label><br>";
-    myAnswers.innerHTML += "<label> <input type='radio' name='choices' value='B'> "+chB+"</label><br>";
-    myAnswers.innerHTML += "<label> <input type='radio' name='choices' value='C'> "+chC+"</label><br><br>";
+    myAnswers.innerHTML += "<label> <input id='choiceA' type='button' name='choices' value='A'> "+chA+"</label><br>";
+    myAnswers.innerHTML += "<label> <input id='choiceB' type='button' name='choices' value='B'> "+chB+"</label><br>";
+    myAnswers.innerHTML += "<label> <input id='choiceC' type='button' name='choices' value='C'> "+chC+"</label><br>";
 
-
-    startQuestion3()
-// write name down after finish
+    var choiceA = document.querySelector('#choiceA')
+    var choiceB = document.querySelector('#choiceB')
+    var choiceC = document.querySelector('#choiceC')
+    choiceA.addEventListener('click', wrongAnswer)
+    choiceB.addEventListener('click', wrongAnswer)
+    choiceC.addEventListener('click', startQuestion3)
+    
 }
 function startQuestion3(){
-
     myAnswers = get("myanswers")
     pos = [2]
 
-    get("questiontitle").innerHTML = "Question "+(pos+1)+" out of "+ myQuestions.length;
-    
+    get("questiontitle").innerHTML = "Question "+"3"+" out of "+ myQuestions.length;
+
     question = myQuestions[pos].question;
     chA = myQuestions[pos].a;
     chB = myQuestions[pos].b;
@@ -156,50 +155,63 @@ function startQuestion3(){
 
     myAnswers.innerHTML = "<h4>"+question+"</h4>";
 
-    myAnswers.innerHTML += "<label> <input type='radio' name='choices' value='A'> "+chA+"</label><br>";
-    myAnswers.innerHTML += "<label> <input type='radio' name='choices' value='B'> "+chB+"</label><br>";
-    myAnswers.innerHTML += "<label> <input type='radio' name='choices' value='C'> "+chC+"</label><br><br>";
+    myAnswers.innerHTML += "<label> <input id='choiceA' type='button' name='choices' value='A'> "+chA+"</label><br>";
+    myAnswers.innerHTML += "<label> <input id='choiceB' type='button' name='choices' value='B'> "+chB+"</label><br>";
+    myAnswers.innerHTML += "<label> <input id='choiceC' type='button' name='choices' value='C'> "+chC+"</label><br>";
 
-
-
-// write name down after finish
+    var choiceA = document.querySelector('#choiceA')
+    var choiceB = document.querySelector('#choiceB')
+    var choiceC = document.querySelector('#choiceC')
+    choiceA.addEventListener('click', wrongAnswer)
+    choiceB.addEventListener('click', wrongAnswer)
+    choiceC.addEventListener('click', formSection)
 }
 
+// this form to record time and fill name
+function formSection(){
+        // save time
+    finishTime = secondsLeft;
+    console.log(finishTime)
+    clearInterval(myTimer);
+    timerSpan.textContent = `${finishTime} seconds`
+    
+    document.querySelector('.section-one').style.display = 'none'
+    document.querySelector('.game-section').style.display = 'none'
+    document.querySelector('.highscore-section').style.display = 'none'
+    document.querySelector('.form-section').style.display = 'block'
 
+    var goToHighscores = document.querySelector('#highscores')
+    goToHighscores.addEventListener('click', highscoreTab)
+    return finishTime
+}
 
 // high scores (hide all other tabs, pops up highscore)
 function highscoreTab(){
     document.querySelector('.section-one').style.display = 'none'
     document.querySelector('.game-section').style.display = 'none'
     document.querySelector('.highscore-section').style.display = 'block'
-
-
-var todoInput = document.querySelector("#todo-text");
-var todoForm = document.querySelector("#todo-form");
-var todoList = document.querySelector("#todo-list");
-
-var todos = [];
+}
 
 // The following function renders items in a todo list as <li> elements
 function renderTodos() {
     // Clear todoList element and update todoCountSpan
     todoList.innerHTML = "";
-  
+
     // Render a new li for each todo
-    for (var i = 0; i < todos.length; i++) {
-      var todo = todos[i];
-  
-      var li = document.createElement("li");
-      li.textContent = todo;
-      li.setAttribute("data-index", i);
-  
-      var button = document.createElement("button");
-      button.textContent = "x";
-  
-      li.appendChild(button);
-      todoList.appendChild(li);
-    }
-  }
+    todos.forEach( function(todo) {
+        var item = `
+            <li>
+                name: ${todo.name}
+                score: ${todo.score}
+                <button>&times;</button>
+            </li>
+        `;
+
+
+        todoList.innerHTML = todoList.innerHTML + item;
+
+    });
+}
 
 // This function is being called below and will run when the page loads.
 function init() {
@@ -232,7 +244,7 @@ todoForm.addEventListener("submit", function(event) {
   }
 
   // Add new todoText to todos array, clear the input
-  todos.push(todoText);
+  todos.push({ name: todoText, score: finishTime});
   todoInput.value = "";
 
   // Store updated todos in localStorage, re-render the list
@@ -258,4 +270,3 @@ todoList.addEventListener("click", function(event) {
 
 // Calls init to retrieve data and render it to the page on load
 init()
-}

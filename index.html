@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="Assets/style.css">
+    <link rel="stylesheet" href="./Assets/style.css">
     
     <title>Coding Quiz Game</title>
 </head>
@@ -18,29 +18,23 @@
     <section class="game-section" >
         <h3 id= 'questiontitle'></h3>
         <div id='myanswers'></div>
-
         <span id="timer"></span>
     </section>
     
     <section class="form-section">
-        <h2 id="your-record">Your record is *time</h2>
-    <form id="todo-form" method="POST">
-        <label for="todo-text">Add a Todo: </label>
-        <input type="text" placeholder="I need to..." name="todo-text" id="todo-text" />
+        <h2>Your record is <span id="your-record"></span></h2>
+        <form id="todo-form" method="POST">
+        <label for="todo-text"></label>
+        <input type="text" placeholder="Your name here" name="todo-text" id="todo-text"/>
+        <button id="highscores">Go to highscores</button>
         </form>
     </section>
 
     <section class="highscore-section">
         <h1>Highscores</h1>
-        <!-- <form id="todo-form" method="POST">
-        <label for="todo-text"></label>
-        <input type="text" placeholder="Enter your name" name="todo-text" id="todo-text" />
-        </form> -->
         <ul id="todo-list"></ul>
-        
-    
     </section>
 
-    <script type = "text/javascript" src="Assets/script.js"></script>
+    <script type = "text/javascript" src="./Assets/script.js"></script>
 </body>
 </html>
